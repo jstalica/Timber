@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 // Make code easier to type with "using namespace"
 using namespace sf;
@@ -176,10 +177,22 @@ int main()
     // Control the player input
     bool acceptInput = false;
 
-    //for (int i = 1; i < 6; i++)
-    //{
-    //    updateBranches(i);
-    //}
+    // Prepare the sound
+    SoundBuffer chopBuffer;
+    chopBuffer.loadFromFile("sound/chop.wav");
+    Sound chop;
+    chop.setBuffer(chopBuffer);
+
+    SoundBuffer deathBuffer;
+    deathBuffer.loadFromFile("sound/death.wav");
+    Sound death;
+    death.setBuffer(deathBuffer);
+
+    SoundBuffer ootBuffer;
+    ootBuffer.loadFromFile("sound/out_of_time.wav");
+    Sound outOfTime;
+    outOfTime.setBuffer(ootBuffer);
+
 
     // Track whether the game is running
     bool paused = true;
@@ -271,6 +284,9 @@ int main()
                 logActive = true;
 
                 acceptInput = false;
+
+                // Play a chop sound
+                chop.play();
             }
 
             // First handle pressing the right cursor key
@@ -297,6 +313,9 @@ int main()
                 logActive = true;
 
                 acceptInput = false;
+
+                // Play a chop sound
+                chop.play();
             }
         }
 
@@ -334,6 +353,9 @@ int main()
                 FloatRect textRect = messageText.getLocalBounds();
                 messageText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.f);
                 messageText.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
+
+                // Play out of time sound
+                outOfTime.play();
 
             }
 
@@ -468,6 +490,9 @@ int main()
                 FloatRect textRect = messageText.getLocalBounds();
                 messageText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.f);
                 messageText.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
+
+                // Play the death sound
+                death.play();
             }
         }
 
