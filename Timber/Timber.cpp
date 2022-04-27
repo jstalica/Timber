@@ -447,6 +447,28 @@ int main()
                     spriteLog.setPosition(810, 720);
                 }
             }
+
+            // Has the player been squished by a branch?
+            if (branchPositions[5] == playerSide)
+            {
+                // death
+                paused = true;
+                acceptInput = false;
+
+                // Draw gravestone
+                spriteRIP.setPosition(525, 760);
+
+                // hide the player
+                spritePlayer.setPosition(2000, 660);
+
+                // change the text of the message
+                messageText.setString("SQUISHED!!!");
+
+                // center on screen
+                FloatRect textRect = messageText.getLocalBounds();
+                messageText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.f);
+                messageText.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
+            }
         }
 
         /*
@@ -517,7 +539,7 @@ int main()
 void updateBranches(int seed)
 {
     // Move all the branches down one place
-    for (int j = sizeof(&branches) - 1; j > 0; j--)
+    for (int j = NUM_BRANCHES - 1; j > 0; j--)
     {
         branchPositions[j] = branchPositions[j - 1];
     }
