@@ -133,6 +133,46 @@ int main()
         branches[i].setOrigin(textureBranch.getSize().x / 2.f, textureBranch.getSize().y / 2.f);
     }
 
+    // Prepare the player
+    Texture texturePlayer;
+    texturePlayer.loadFromFile("graphics/player.png");
+    Sprite spritePlayer;
+    spritePlayer.setTexture(texturePlayer);
+    spritePlayer.setPosition(580, 720);
+
+    // The player starts on the left
+    side playerSide = side::LEFT;
+
+    // Prepare the gravestone
+    Texture textureRIP;
+    textureRIP.loadFromFile("graphics/rip.png");
+    Sprite spriteRIP;
+    spriteRIP.setTexture(textureRIP);
+    spriteRIP.setPosition(600, 860);
+
+    // Prepare the axe
+    Texture textureAxe;
+    textureAxe.loadFromFile("graphics/axe.png");
+    Sprite spriteAxe;
+    spriteAxe.setTexture(textureAxe);
+    spriteAxe.setPosition(700, 830);
+
+    // Line the axe up with the tree
+    const float AXE_POSITION_LEFT = 700;
+    const float AXE_POSITION_RIGHT = 1075;
+
+    // Prepare the flying log
+    Texture textureLog;
+    textureLog.loadFromFile("graphics/log.png");
+    Sprite spriteLog;
+    spriteLog.setTexture(textureLog);
+    spriteLog.setPosition(810, 720);
+
+    // Some other useful log related variables
+    bool logActive = false;
+    float logSpeedX = 1000;
+    float logSpeedY = -1500;
+
     for (int i = 1; i < 6; i++)
     {
         updateBranches(i);
@@ -332,6 +372,18 @@ int main()
 
         // Draw the tree
         window.draw(spriteTree);
+
+        // Draw the player
+        window.draw(spritePlayer);
+        
+        // Draw the axe
+        window.draw(spriteAxe);
+
+        // Draw the flying log
+        window.draw(spriteLog);
+
+        // Draw the gravestone
+        window.draw(spriteRIP);
 
         // Draw the bee
         window.draw(spriteBee);
